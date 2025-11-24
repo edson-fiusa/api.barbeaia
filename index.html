@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Barbearia - Estilo & Tradição</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22;
+            --gold: #d4af37;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --cashback: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-menu a:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* Menu Mobile */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-price {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        /* Barbeiros Grid */
+        .barbeiros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .barbeiro-card {
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .barbeiro-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--gold);
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+        
+        button.danger {
+            background: var(--danger);
+        }
+        
+        button.danger:hover {
+            background: #c0392b;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Responsive table actions */
+        .table-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .table-actions button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Cashback Banner */
+        .cashback-banner {
+            background: linear-gradient(135deg, var(--cashback), #2980b9);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Contact Info */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .contact-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            /* Responsive table */
+            .table-responsive {
+                overflow-x: auto;
+            }
+            
+            .table-actions {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .table-actions button {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cut"></i>
+                    API Barbearia
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" onclick="showPage('home')">Início</a></li>
+                    <li><a href="#" onclick="showPage('agendar')">Agendar</a></li>
+                    <li><a href="#" onclick="showPage('meus-agendamentos')">Meus Agendamentos</a></li>
+                    <li id="barbeiro-menu" style="display: none;">
+                        <a href="#" onclick="showPage('dashboard')">Área do Barbeiro</a>
+                    </li>
+                    <li id="login-menu">
+                        <a href="#" onclick="showPage('login')">Login Barbeiro</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Página Inicial Melhorada -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Estilo que Transforma</h1>
+                <p>Na API Barbearia, cada corte é uma obra de arte. Tradição e modernidade para o homem contemporâneo.</p>
+                <a href="#" class="cta-button" onclick="showPage('agendar')">
+                    <i class="fas fa-calendar-plus"></i> Agendar Horário
+                </a>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Cashback Banner -->
+            <div class="cashback-banner">
+                <h2><i class="fas fa-gift"></i> 18% de Cashback em Todos os Serviços!</h2>
+                <p>Agende agora e ganhe 18% do valor para usar em seu próximo serviço. Estilo que vale a pena!</p>
+            </div>
+
+            <!-- Serviços -->
+            <section>
+                <h2 class="section-title">Nossos Serviços</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                        <div class="service-content">
+                            <h3>Corte de Cabelo</h3>
+                            <p>Corte moderno e estilizado com as últimas tendências</p>
+                            <div class="service-price">R$ 30,00</div>
+                            <small>Cashback: R$ 5,40</small>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                        <div class="service-content">
+                            <h3>Barba & Bigode</h3>
+                            <p>Modelagem e cuidados especiais para sua barba</p>
+                            <div class="service-price">R$ 20,00</div>
+                            <small>Cashback: R$ 3,60</small>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                        <div class="service-content">
+                            <h3>Combo Completo</h3>
+                            <p>Corte + Barba - O cuidado completo que você merece</p>
+                            <div class="service-price">R$ 45,00</div>
+                            <small>Cashback: R$ 8,10</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nossos Barbeiros -->
+            <section>
+                <h2 class="section-title">Nossa Equipe</h2>
+                <div class="barbeiros-grid">
+                    <div class="barbeiro-card">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="João" class="barbeiro-avatar">
+                        <h3>João Silva</h3>
+                        <p>Especialista em Cortes Clássicos</p>
+                        <p><small>10 anos de experiência</small></p>
+                    </div>
+                    
+                    <div class="barbeiro-card">
+                        <img src="https://img.freepik.com/fotos-premium/cabeleireiro-masculino-confiante-sentado-na-cadeira-na-barbearia_153608-5412.jpg?semt=ais_hybrid&w=740&q=80" 
+                             alt="Pedro" class="barbeiro-avatar">
+                        <h3>Pedro Santos</h3>
+                        <p>Mestre em Barbas e Estilos Modernos</p>
+                        <p><small>8 anos de experiência</small></p>
+                    </div>
+                    
+                    <div class="barbeiro-card">
+                        <img src="https://img.freepik.com/fotos-gratis/cabeleireiro-profissional-com-ferramentas-de-barbeiro-de-perto_1303-20983.jpg"  
+                             alt="Carlos" class="barbeiro-avatar">
+                        <h3>Carlos Oliveira</h3>
+                        <p>Especialista em Cortes Infantis</p>
+                        <p><small>6 anos de experiência</small></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contato -->
+            <section>
+                <h2 class="section-title">Entre em Contato</h2>
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Endereço</h3>
+                        <p>Rua das Flores, 123<br>Centro, São Paulo - SP</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Telefone</h3>
+                        <p>(11) 9999-9999<br>(11) 8888-8888</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Horário</h3>
+                        <p>Segunda a Sexta: 8h-20h<br>Sábado: 8h-18h<br>Domingo: 9h-14h</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Demais Páginas (mantidas do código anterior) -->
+    <main>
+        <div class="container">
+            <!-- Agendamento -->
+            <div id="agendar" class="page">
+                <h1 class="section-title">Fazer Agendamento</h1>
+                
+                <div class="cashback-banner">
+                    <h3>💰 Cashback de 18% Garantido</h3>
+                    <p>Você receberá 18% do valor deste serviço como cashback!</p>
+                </div>
+                
+                <div class="card">
+                    <form id="form-agendamento">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">Telefone (apenas números)</label>
+                            <input type="text" id="telefone" placeholder="11999999999" required maxlength="11">
+                            <small style="color: #666;">Digite apenas números, com DDD (ex: 11999999999)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="servico">Serviço</label>
+                            <select id="servico" required onchange="calcularCashback()">
+                                <option value="">Selecione um serviço</option>
+                                <option value="Corte de Cabelo" data-preco="30">Corte de Cabelo - R$ 30,00</option>
+                                <option value="Barba" data-preco="20">Barba - R$ 20,00</option>
+                                <option value="Corte + Barba" data-preco="45">Corte + Barba - R$ 45,00</option>
+                                <option value="Sobrancelha" data-preco="15">Sobrancelha - R$ 15,00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="barbeiro">Barbeiro</label>
+                            <select id="barbeiro" required>
+                                <option value="">Selecione um barbeiro</option>
+                                <option value="João">João</option>
+                                <option value="Pedro">Pedro</option>
+                                <option value="Carlos">Carlos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="data">Data</label>
+                            <input type="date" id="data" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="horario">Horário</label>
+                            <select id="horario" required>
+                                <option value="">Selecione um horário</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                            </select>
+                        </div>
+                        
+                        <div id="cashback-info" style="background: #e8f6f3; padding: 1rem; border-radius: 4px; margin: 1rem 0; display: none;">
+                            <h4>💰 Resumo do Cashback</h4>
+                            <div id="cashback-details"></div>
+                        </div>
+                        
+                        <button type="submit">Confirmar Agendamento</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Meus Agendamentos -->
+            <div id="meus-agendamentos" class="page">
+                <h1 class="section-title">Meus Agendamentos</h1>
+                
+                <div class="cashback-banner">
+                    <h3>💳 Seu Cashback Disponível</h3>
+                    <p id="total-cashback">Total: R$ 0,00</p>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label for="buscar-telefone">Digite seu telefone (apenas números):</label>
+                        <input type="text" id="buscar-telefone" placeholder="11999999999" maxlength="11" oninput="buscarAgendamentos()">
+                        <small style="color: #666;">Digite o mesmo telefone usado no agendamento (apenas números)</small>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table id="tabela-agendamentos">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Horário</th>
+                                    <th>Serviço</th>
+                                    <th>Barbeiro</th>
+                                    <th>Status</th>
+                                    <th>Cashback</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Digite seu telefone para buscar agendamentos</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Barbeiro -->
+            <div id="login" class="page">
+                <h1 class="section-title">Login - Área do Barbeiro</h1>
+                
+                <div class="card" style="max-width: 400px; margin: 0 auto;">
+                    <form id="form-login">
+                        <div class="form-group">
+                            <label for="usuario">Usuário</label>
+                            <input type="text" id="usuario" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" required>
+                        </div>
+                        
+                        <button type="submit">Entrar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Dashboard Barbeiro -->
+            <div id="dashboard" class="page">
+                <h1 class="section-title">Dashboard - Barbeiro</h1>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="stat-hoje">0</h3>
+                        <p>Agendamentos Hoje</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-mes">0</h3>
+                        <p>Agendamentos Este Mês</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-cashback">R$ 0</h3>
+                        <p>Cashback Gerado</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-clientes">0</h3>
+                        <p>Clientes Únicos</p>
+                    </div>
+                    <!-- Novos cards de ganhos -->
+                    <div class="stat-card">
+                        <h3 id="stat-ganho-semana">R$ 0</h3>
+                        <p>Ganhos da Semana</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-ganho-mes">R$ 0</h3>
+                        <p>Ganhos do Mês</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Todos os Agendamentos</h3>
+                    <div class="table-responsive">
+                        <table id="tabela-todos-agendamentos">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cliente</th>
+                                    <th>Telefone</th>
+                                    <th>Horário</th>
+                                    <th>Serviço</th>
+                                    <th>Barbeiro</th>
+                                    <th>Status</th>
+                                    <th>Cashback</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="logoutBarbeiro()">Sair</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>API Barbearia</h3>
+                    <p>Estilo, tradição e qualidade em cada corte. Há mais de 10 anos transformando a autoestima dos homens modernos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Horários</h3>
+                    <p>Segunda a Sexta: 8h às 20h<br>
+                    Sábado: 8h às 18h<br>
+                    Domingo: 9h às 14h</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Rua das Flores, 123 - Centro<br>
+                    São Paulo - SP<br>
+                    (11) 9999-9999<br>
+                    contato@apibarbearia.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notificação -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Sistema de armazenamento
+        const STORAGE_KEYS = {
+            AGENDAMENTOS: 'barbearia_agendamentos_v4',
+            BARBEIRO_LOGADO: 'barbearia_barbeiro_logado_v4',
+            CASHBACK: 'barbearia_cashback_v4'
+        };
+
+        // Dados iniciais
+        function inicializarDados() {
+            if (!localStorage.getItem(STORAGE_KEYS.AGENDAMENTOS)) {
+                localStorage.setItem(STORAGE_KEYS.AGENDAMENTOS, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.CASHBACK)) {
+                localStorage.setItem(STORAGE_KEYS.CASHBACK, JSON.stringify({}));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.BARBEIRO_LOGADO)) {
+                localStorage.setItem(STORAGE_KEYS.BARBEIRO_LOGADO, JSON.stringify(false));
+            }
+        }
+
+        // Funções de acesso ao localStorage
+        function getAgendamentos() {
+            const dados = localStorage.getItem(STORAGE_KEYS.AGENDAMENTOS);
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function setAgendamentos(agendamentos) {
+            localStorage.setItem(STORAGE_KEYS.AGENDAMENTOS, JSON.stringify(agendamentos));
+        }
+
+        function getCashback() {
+            const dados = localStorage.getItem(STORAGE_KEYS.CASHBACK);
+            return dados ? JSON.parse(dados) : {};
+        }
+
+        function setCashback(cashback) {
+            localStorage.setItem(STORAGE_KEYS.CASHBACK, JSON.stringify(cashback));
+        }
+
+        function getBarbeiroLogado() {
+            const dados = localStorage.getItem(STORAGE_KEYS.BARBEIRO_LOGADO);
+            return dados ? JSON.parse(dados) : false;
+        }
+
+        function setBarbeiroLogado(logado) {
+            localStorage.setItem(STORAGE_KEYS.BARBEIRO_LOGADO, JSON.stringify(logado));
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarDados();
+            
+            // Configurar data mínima
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('data').min = hoje;
+            
+            // Event listeners
+            document.getElementById('form-agendamento').addEventListener('submit', fazerAgendamento);
+            document.getElementById('form-login').addEventListener('submit', loginBarbeiro);
+            
+            // Permitir apenas números no telefone
+            document.getElementById('telefone').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+            
+            document.getElementById('buscar-telefone').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+                buscarAgendamentos();
+            });
+            
+            // Menu mobile
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('navMenu').classList.toggle('active');
+            });
+            
+            atualizarMenuBarbeiro();
+            
+            // Adicionar agendamentos de exemplo para teste
+            adicionarAgendamentosExemplo();
+        });
+
+        // Adicionar agendamentos de exemplo
+        function adicionarAgendamentosExemplo() {
+            const agendamentos = getAgendamentos();
+            if (agendamentos.length === 0) {
+                const exemplos = [
+                    {
+                        id: '1',
+                        nome: 'João Silva',
+                        telefone: '11999999999',
+                        servico: 'Corte de Cabelo',
+                        barbeiro: 'João',
+                        data: '2024-12-20',
+                        horario: '10:00',
+                        preco: 30,
+                        cashback: 5.40,
+                        status: 'confirmado',
+                        dataCriacao: new Date().toISOString()
+                    },
+                    {
+                        id: '2', 
+                        nome: 'Maria Santos',
+                        telefone: '11888888888',
+                        servico: 'Corte + Barba',
+                        barbeiro: 'Pedro',
+                        data: '2024-12-21',
+                        horario: '14:00',
+                        preco: 45,
+                        cashback: 8.10,
+                        status: 'confirmado',
+                        dataCriacao: new Date().toISOString()
+                    }
+                ];
+                
+                setAgendamentos(exemplos);
+                
+                const cashbackData = {};
+                cashbackData['11999999999'] = 5.40;
+                cashbackData['11888888888'] = 8.10;
+                setCashback(cashbackData);
+            }
+        }
+
+        // Navegação
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Fechar menu mobile ao navegar
+            document.getElementById('navMenu').classList.remove('active');
+            
+            if (pageId === 'dashboard' && !getBarbeiroLogado()) {
+                showNotification('Faça login como barbeiro primeiro!', 'error');
+                showPage('login');
+                return;
+            }
+            
+            if (pageId === 'dashboard') {
+                carregarDashboard();
+            }
+            
+            if (pageId === 'meus-agendamentos') {
+                document.getElementById('buscar-telefone').value = '';
+                document.getElementById('tabela-agendamentos').querySelector('tbody').innerHTML = 
+                    '<tr><td colspan="7" style="text-align: center;">Digite seu telefone para buscar agendamentos</td></tr>';
+                document.getElementById('total-cashback').textContent = 'Total: R$ 0,00';
+            }
+        }
+
+        function atualizarMenuBarbeiro() {
+            const barbeiroLogado = getBarbeiroLogado();
+            document.getElementById('barbeiro-menu').style.display = barbeiroLogado ? 'block' : 'none';
+            document.getElementById('login-menu').style.display = barbeiroLogado ? 'none' : 'block';
+        }
+
+        // Calcular cashback
+        function calcularCashback() {
+            const servicoSelect = document.getElementById('servico');
+            const selectedOption = servicoSelect.options[servicoSelect.selectedIndex];
+            
+            if (selectedOption.value && selectedOption.dataset.preco) {
+                const preco = parseFloat(selectedOption.dataset.preco);
+                const cashback = preco * 0.18;
+                
+                document.getElementById('cashback-details').innerHTML = `
+                    <p><strong>Valor do serviço:</strong> R$ ${preco.toFixed(2)}</p>
+                    <p><strong>Cashback (18%):</strong> R$ ${cashback.toFixed(2)}</p>
+                    <p><em>Você ganha R$ ${cashback.toFixed(2)} para usar no próximo serviço!</em></p>
+                `;
+                document.getElementById('cashback-info').style.display = 'block';
+            } else {
+                document.getElementById('cashback-info').style.display = 'none';
+            }
+        }
+
+        // Fazer agendamento
+        function fazerAgendamento(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const servico = document.getElementById('servico').value;
+            const barbeiro = document.getElementById('barbeiro').value;
+            const data = document.getElementById('data').value;
+            const horario = document.getElementById('horario').value;
+            
+            if (!nome || !telefone || !servico || !barbeiro || !data || !horario) {
+                showNotification('Preencha todos os campos!', 'error');
+                return;
+            }
+            
+            if (telefone.length < 10) {
+                showNotification('Digite um telefone válido com DDD!', 'error');
+                return;
+            }
+            
+            // Verificar conflito de horário
+            const agendamentos = getAgendamentos();
+            const conflito = agendamentos.some(ag => 
+                ag.data === data && 
+                ag.horario === horario && 
+                ag.barbeiro === barbeiro &&
+                ag.status !== 'cancelado'
+            );
+            
+            if (conflito) {
+                showNotification('Horário já ocupado para este barbeiro! Escolha outro horário.', 'error');
+                return;
+            }
+            
+            // Calcular preço e cashback
+            const precos = {
+                'Corte de Cabelo': 30,
+                'Barba': 20,
+                'Corte + Barba': 45,
+                'Sobrancelha': 15
+            };
+            
+            const preco = precos[servico];
+            const cashback = preco * 0.18;
+            
+            // Criar agendamento
+            const novoAgendamento = {
+                id: Date.now().toString(),
+                nome,
+                telefone,
+                servico,
+                barbeiro,
+                data,
+                horario,
+                preco,
+                cashback,
+                status: 'confirmado',
+                dataCriacao: new Date().toISOString()
+            };
+            
+            // Salvar
+            agendamentos.push(novoAgendamento);
+            setAgendamentos(agendamentos);
+            
+            // Atualizar cashback
+            const cashbackData = getCashback();
+            cashbackData[telefone] = (cashbackData[telefone] || 0) + cashback;
+            setCashback(cashbackData);
+            
+            // Limpar formulário
+            document.getElementById('form-agendamento').reset();
+            document.getElementById('cashback-info').style.display = 'none';
+            
+            showNotification(`✅ Agendamento confirmado! Cashback: R$ ${cashback.toFixed(2)}`, 'success');
+            
+            setTimeout(() => {
+                showNotification(`📱 Para ver seus agendamentos, use o telefone: ${telefone}`, 'success');
+            }, 2000);
+            
+            setTimeout(() => showPage('home'), 3000);
+        }
+
+        // BUSCAR AGENDAMENTOS
+        function buscarAgendamentos() {
+            const telefone = document.getElementById('buscar-telefone').value;
+            const tabela = document.getElementById('tabela-agendamentos').querySelector('tbody');
+            
+            if (!telefone || telefone.length < 10) {
+                tabela.innerHTML = '<tr><td colspan="7" style="text-align: center;">Digite um telefone válido com DDD (apenas números)</td></tr>';
+                document.getElementById('total-cashback').textContent = 'Total: R$ 0,00';
+                return;
+            }
+            
+            const agendamentos = getAgendamentos();
+            const meusAgendamentos = agendamentos.filter(ag => ag.telefone === telefone);
+            
+            if (meusAgendamentos.length === 0) {
+                tabela.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhum agendamento encontrado para este telefone</td></tr>';
+                showNotification('❌ Nenhum agendamento encontrado!', 'error');
+            } else {
+                tabela.innerHTML = '';
+                meusAgendamentos.forEach(ag => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${formatarData(ag.data)}</td>
+                        <td>${ag.horario}</td>
+                        <td>${ag.servico} - R$ ${ag.preco.toFixed(2)}</td>
+                        <td>${ag.barbeiro}</td>
+                        <td>
+                            <span style="color: ${ag.status === 'confirmado' ? 'green' : 'red'}; font-weight: bold;">
+                                ${ag.status === 'confirmado' ? '✅ Confirmado' : '❌ Cancelado'}
+                            </span>
+                        </td>
+                        <td style="color: green; font-weight: bold;">R$ ${ag.cashback.toFixed(2)}</td>
+                        <td>
+                            <div class="table-actions">
+                                ${ag.status === 'confirmado' ? 
+                                    `<button class="danger" onclick="cancelarAgendamento('${ag.id}', '${telefone}')">Cancelar</button>` : 
+                                    '❌ Cancelado'
+                                }
+                            </div>
+                        </td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+                showNotification(`✅ Encontrados ${meusAgendamentos.length} agendamentos!`, 'success');
+            }
+            
+            // Atualizar cashback total
+            const cashbackData = getCashback();
+            const total = cashbackData[telefone] || 0;
+            document.getElementById('total-cashback').textContent = `Total: R$ ${total.toFixed(2)}`;
+        }
+
+        // Cancelar agendamento
+        function cancelarAgendamento(id, telefone) {
+            if (!confirm('Tem certeza que deseja cancelar este agendamento?')) return;
+            
+            const agendamentos = getAgendamentos();
+            const agendamentoIndex = agendamentos.findIndex(ag => ag.id === id);
+            
+            if (agendamentoIndex !== -1) {
+                agendamentos[agendamentoIndex].status = 'cancelado';
+                setAgendamentos(agendamentos);
+                
+                // Remover cashback
+                const cashbackData = getCashback();
+                if (cashbackData[telefone]) {
+                    cashbackData[telefone] = Math.max(0, cashbackData[telefone] - agendamentos[agendamentoIndex].cashback);
+                    setCashback(cashbackData);
+                }
+                
+                showNotification('Agendamento cancelado! Cashback removido.', 'success');
+                buscarAgendamentos();
+                if (getBarbeiroLogado()) carregarDashboard();
+            }
+        }
+
+        // Login barbeiro
+        function loginBarbeiro(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            
+            if (usuario === 'barbeiro' && senha === '123456') {
+                setBarbeiroLogado(true);
+                atualizarMenuBarbeiro();
+                showPage('dashboard');
+                showNotification('✅ Login realizado com sucesso!', 'success');
+            } else {
+                showNotification('❌ Usuário ou senha incorretos!', 'error');
+            }
+        }
+
+        // Logout barbeiro
+        function logoutBarbeiro() {
+            setBarbeiroLogado(false);
+            atualizarMenuBarbeiro();
+            showPage('home');
+            showNotification('✅ Logout realizado!', 'success');
+        }
+
+        // Carregar dashboard
+        function carregarDashboard() {
+            const agendamentos = getAgendamentos();
+            const hoje = new Date().toISOString().split('T')[0];
+            
+            // Calcular datas da semana
+            const hojeObj = new Date();
+            const inicioSemana = new Date(hojeObj);
+            inicioSemana.setDate(hojeObj.getDate() - hojeObj.getDay());
+            const inicioSemanaStr = inicioSemana.toISOString().split('T')[0];
+            
+            const inicioMes = new Date(hojeObj.getFullYear(), hojeObj.getMonth(), 1);
+            const inicioMesStr = inicioMes.toISOString().split('T')[0];
+            
+            // Estatísticas
+            const agendamentosHoje = agendamentos.filter(ag => ag.data === hoje && ag.status !== 'cancelado');
+            const agendamentosMes = agendamentos.filter(ag => {
+                const data = new Date(ag.data);
+                return data.getMonth() === new Date().getMonth() && ag.status !== 'cancelado';
+            });
+            
+            const totalCashback = agendamentos.reduce((total, ag) => total + (ag.status !== 'cancelado' ? ag.cashback : 0), 0);
+            const clientesUnicos = new Set(agendamentos.filter(ag => ag.status !== 'cancelado').map(ag => ag.telefone)).size;
+            
+            // Calcular ganhos da semana e do mês
+            const ganhosSemana = agendamentos
+                .filter(ag => ag.data >= inicioSemanaStr && ag.status !== 'cancelado')
+                .reduce((total, ag) => total + ag.preco, 0);
+                
+            const ganhosMes = agendamentos
+                .filter(ag => ag.data >= inicioMesStr && ag.status !== 'cancelado')
+                .reduce((total, ag) => total + ag.preco, 0);
+            
+            document.getElementById('stat-hoje').textContent = agendamentosHoje.length;
+            document.getElementById('stat-mes').textContent = agendamentosMes.length;
+            document.getElementById('stat-cashback').textContent = `R$ ${totalCashback.toFixed(2)}`;
+            document.getElementById('stat-clientes').textContent = clientesUnicos;
+            document.getElementById('stat-ganho-semana').textContent = `R$ ${ganhosSemana.toFixed(2)}`;
+            document.getElementById('stat-ganho-mes').textContent = `R$ ${ganhosMes.toFixed(2)}`;
+            
+            // Tabela de agendamentos
+            const tabela = document.getElementById('tabela-todos-agendamentos').querySelector('tbody');
+            tabela.innerHTML = '';
+            
+            // Ordenar por data (mais recente primeiro)
+            agendamentos.sort((a, b) => new Date(b.data) - new Date(a.data));
+            
+            if (agendamentos.length === 0) {
+                tabela.innerHTML = '<tr><td colspan="9" style="text-align: center;">Nenhum agendamento cadastrado</td></tr>';
+            } else {
+                agendamentos.forEach(ag => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${formatarData(ag.data)}</td>
+                        <td>${ag.nome}</td>
+                        <td>${formatarTelefoneDisplay(ag.telefone)}</td>
+                        <td>${ag.horario}</td>
+                        <td>${ag.servico} - R$ ${ag.preco.toFixed(2)}</td>
+                        <td>${ag.barbeiro}</td>
+                        <td>
+                            <span style="color: ${ag.status === 'confirmado' ? 'green' : 'red'};">
+                                ${ag.status}
+                            </span>
+                        </td>
+                        <td style="color: green;">R$ ${ag.cashback.toFixed(2)}</td>
+                        <td>
+                            <div class="table-actions">
+                                ${ag.status === 'confirmado' ? 
+                                    `<button onclick="alterarStatus('${ag.id}', 'realizado')">Marcar como Realizado</button>
+                                     <button class="danger" onclick="cancelarAgendamento('${ag.id}', '${ag.telefone}')">Cancelar</button>` : 
+                                    '<em>Finalizado</em>'
+                                }
+                            </div>
+                        </td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+            }
+        }
+
+        // Alterar status (barbeiro)
+        function alterarStatus(id, status) {
+            const agendamentos = getAgendamentos();
+            const agendamentoIndex = agendamentos.findIndex(ag => ag.id === id);
+            
+            if (agendamentoIndex !== -1) {
+                agendamentos[agendamentoIndex].status = status;
+                setAgendamentos(agendamentos);
+                showNotification('Status atualizado para "Realizado"!', 'success');
+                carregarDashboard();
+            }
+        }
+
+        // Utilitários
+        function formatarData(data) {
+            return data.split('-').reverse().join('/');
+        }
+
+        function formatarTelefoneDisplay(telefone) {
+            return telefone.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+
+        function showNotification(mensagem, tipo) {
+            const notification = document.getElementById('notification');
+            notification.textContent = mensagem;
+            notification.className = `notification ${tipo}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
